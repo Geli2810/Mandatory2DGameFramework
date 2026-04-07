@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<GameConfig>
+	<World>
+		<MaxX>100</MaxX>
+		<MaxY>100</MaxY>
+	</World>
+	<Level>begynder</Level>
+</GameConfig>

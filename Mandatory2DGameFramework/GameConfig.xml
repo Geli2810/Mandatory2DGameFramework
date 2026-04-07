@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Mandatory2DGameFramework</name>
+    </assembly>
+    <members>
+        <member name="F:Mandatory2DGameFramework.LoggingFile.MyLogger.instance">
+            <summary>
+            Singleton instance of MyLogger. It is initialized to null, and it is created when the Instance property is accessed for the first time. The lock is used to ensure that only one instance of MyLogger is created in a multithreaded environment.
+            </summary>
+        </member>
+        <member name="M:Mandatory2DGameFramework.LoggingFile.MyLogger.#ctor">
+            <summary>
+            The constructor for the MyLogger class. It sets the AutoFlush property of the Trace class to true. This means that the Trace class will automatically flush its buffers when a message is written to it.
+            </summary>
+        </member>
+        <member name="P:Mandatory2DGameFramework.LoggingFile.MyLogger.Instance">
+            <summary>
+            The Instance property returns the singleton instance of MyLogger. It uses the lock keyword to ensure that only one instance of MyLogger is created in a multithreaded environment.
+            </summary>
+        </member>
+        <member name="M:Mandatory2DGameFramework.LoggingFile.MyLogger.AddListener(System.Diagnostics.TraceListener)">
+            <summary>
+            The AddListener method adds a TraceListener to the Trace.Listeners collection. If the listener is not already in the collection, it is added.
+            </summary>
+            <param name="listener"> The listener to be added to the Trace.Listeners collection</param>
+        </member>
+        <member name="M:Mandatory2DGameFramework.LoggingFile.MyLogger.RemoveListener(System.Diagnostics.TraceListener)">
+            <summary>
+            The RemoveListener method removes a TraceListener from the Trace.Listeners collection.  If the listener is in the collection, it is removed.
+            </summary>
+            <param name="listener"> The listener to be removed from the Trace.Listeners collection</param>
+        </member>
+        <member name="M:Mandatory2DGameFramework.LoggingFile.MyLogger.LogInfo(System.String)">
+            <summary>
+            The LogInfo method writes an information message to the Trace class. It uses the Trace.TraceInformation method to write the message to the trace listeners.
+            </summary>
+            <param name="message"> The message to be logged and it should be an string message</param>
+        </member>
+        <member name="M:Mandatory2DGameFramework.LoggingFile.MyLogger.LogWarning(System.String)">
+            <summary>
+            The LogWarning method writes a warning message to the Trace class. It uses the Trace.TraceWarning method to write the message to the trace listeners.
+            </summary>
+            <param name="message"> The message to be logged and it should be an string message</param>
+        </member>
+        <member name="M:Mandatory2DGameFramework.LoggingFile.MyLogger.LogError(System.String)">
+            <summary>
+            The LogError method writes an error message to the Trace class. It uses the Trace.TraceError method to write the message to the trace listeners.
+            </summary>
+            <param name="message"> The message to be logged and it should be an string message</param>
+        </member>
+        <member name="M:Mandatory2DGameFramework.model.attack.AttackItem.#ctor">
+            <summary>
+            Constructor for AttackItem, it initializes the Name to an empty string, Hit to 0, and Range to 0.
+            </summary>
+        </member>
+        <member name="P:Mandatory2DGameFramework.model.defence.DefenceItem.ReduceHitPoint">
+            <summary>
+            The ReduceHitPoint property represents the amount of hit points to reduce when the DefenceItem is used.
+            </summary>
+        </member>
+        <member name="M:Mandatory2DGameFramework.model.defence.DefenceItem.#ctor">
+            <summary>
+            here is the constructor for the DefenceItem class, it initializes the Name to an empty string and ReduceHitPoint to 0.
+            </summary>
+        </member>
+        <member name="M:Mandatory2DGameFramework.model.defence.DefenceItem.ToString">
+            <summary>
+            Returns a string that represents the current object.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Mandatory2DGameFramework.Observer.IObserver">
+            <summary>
+            Observer interface for receiving notifications from subjects.
+            </summary>
+        </member>
+        <member name="M:Mandatory2DGameFramework.Observer.IObserver.Update(Mandatory2DGameFramework.Observer.ISubject,System.String)">
+            <summary>
+            Updates the observer with a message from the subject.
+            </summary>
+            <param name="subject">The subject sending the update.</param>
+            <param name="message">The message describing the update.</param>
+        </member>
+        <member name="P:Mandatory2DGameFramework.worlds.World.MaxX">
+            <summary>
+            The maximum X and Y values of the world
+            </summary>
+        </member>
+        <member name="M:Mandatory2DGameFramework.worlds.World.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Here we create the world with the given maxX and maxY, and we initialize the world objects and creatures lists.
+            </summary>
+            <param name="maxX">The maximum X value of the world that means the maximum width of the world</param>
+            <param name="maxY"> The maximum Y value of the world, that means the maximum height of the world</param>
+        </member>
+        <member name="M:Mandatory2DGameFramework.worlds.World.ToString">
+            <summary>
+            returns a string with the values of the maxX and maxY of the world, and the lists of world objects and creatures.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Mandatory2DGameFramework.worlds.WorldObject.#ctor">
+            <summary>
+            Default constructor for WorldObject, it initializes the Name to an empty string, and sets Lootable and Removeable to false.
+            </summary>
+        </member>
+        <member name="M:Mandatory2DGameFramework.worlds.WorldObject.ToString">
+            <summary>
+            Returns a string representation of the WorldObject, including the Name, Lootable, and Removeable properties.
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
