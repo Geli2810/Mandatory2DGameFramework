@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 
 namespace Mandatory2DGameFramework.model.CreatureTypes
 {
+    // O - Open/Closed
+    // L - Liskov Substitution
     public class Warrior : Creature
     {
 

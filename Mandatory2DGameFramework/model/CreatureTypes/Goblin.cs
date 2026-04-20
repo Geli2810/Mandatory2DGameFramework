@@ -37,7 +37,7 @@ namespace Mandatory2DGameFramework.model.CreatureTypes
 
         protected override void OnDeath()
         {
-            Console.WriteLine($"The creature {Name} has died.");
+            MyLogger.Instance.LogInfo($"{Name} has died!");
 
         }
     }

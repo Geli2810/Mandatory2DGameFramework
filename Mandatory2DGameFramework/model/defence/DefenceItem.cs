@@ -29,7 +29,7 @@ namespace Mandatory2DGameFramework.model.defence
         /// <returns></returns>
         public override string ToString()
         {
-            return $"{{{nameof(Name)}={Name}, {nameof(ReduceHitPoint)}={ReduceHitPoint.ToString()}}}";
+            return Name;
         }
     }
 }

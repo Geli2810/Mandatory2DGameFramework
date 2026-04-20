@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Mandatory2DGameFramework.Strategy
 {
+    // I - Interface Segregation
     public interface IAttackStrategy
     {
         void Attack(Creature attacker);

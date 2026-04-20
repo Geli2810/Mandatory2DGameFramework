@@ -10,36 +10,93 @@ using Mandatory2DGameFramework.Strategy;
 using Mandatory2DGameFramework.worlds;
 using System.Diagnostics;
 
-// ── Logging setup ──────────────────────────────────────────────
-var fileListener = new TextWriterTraceListener("log.txt");
-Trace.AutoFlush = true;
-var consoleListener = new ConsoleTraceListener();
-MyLogger.Instance.AddListener(consoleListener);
 
-Console.WriteLine("=== SINGLETON TEST ===");
+
+Trace.AutoFlush = true;
+MyLogger.Instance.AddListener(new ConsoleTraceListener());
+MyLogger.Instance.AddListener(new TextWriterTraceListener("log.txt"));
 MyLogger.Instance.LogInfo("Singleton logger works!");
 MyLogger.Instance.LogWarning("Low health warning");
 MyLogger.Instance.LogError("Enemy attack error");
-Console.WriteLine("Singleton: Log entries written to log.txt\n");
 
-// ── XML Konfiguration ──────────────────────────────────────────
-Console.WriteLine("=== XML CONFIG TEST ===");
+// Config
 var config = GameConfigLoader.Load("C:\\Datamatiker Uddannelsen\\4.Semester Valgfager\\Programmering\\Mandatory2DGameFramework\\ConsoleApp1\\GameConfig.xml");
 var world = new World(config.MaxX, config.MaxY);
-Console.WriteLine($"World size: {world.MaxX} x {world.MaxY}");
-Console.WriteLine($"Level: {config.Level}\n");
 
-// ── Observer setup ─────────────────────────────────────────────
-Console.WriteLine("=== OBSERVER TEST ===");
-var warrior = new Warrior { Name = "Warrior", HitPoint = 100 };
-var goblin = new Goblin { Name = "Goblin", HitPoint = 50 };
-var dragon = new Dragon { Name = "Dragon", HitPoint = 200 };
+// Creatures
+var fighter1 = new Warrior { Name = "Warrior", HitPoint = 100 };
+var fighter2 = new Dragon { Name = "Dragon", HitPoint = 120 };
 
+// Weapons
+fighter1.AddWeapons(
+    new Sword { Name = "Sword", Hit = 15, Weight = 5 },
+    new Pistol { Name = "Pistol", Hit = 12, Weight = 3 },
+    new Sword { Name = "Sword", Hit = 15, Weight = 5 });
+
+fighter2.AddWeapons(new Pistol { Name = "Pistol", Hit = 12, Weight = 3 },
+    new Sword { Name = "Sword", Hit = 15, Weight = 5 });
+
+AttackItemDecorator boosted = new BoostDecorator(new Sword { Name = "Sword", Hit = 15, Weight = 5 }, 5);
+fighter2.AddWeapons(boosted);
+
+// combined to weapons
+var combined = new Sword { Name = "Sword", Hit = 15, Weight = 5 } + new Pistol { Name = "Pistol", Hit = 12, Weight = 3 };
+fighter2.AddWeapons(combined);
+
+
+// Defence
+fighter1.DDefenceComposite.AddDefence(new Shield { Name = "Shield", ReduceHitPoint = 5 });
+fighter2.DDefenceComposite.AddDefence(new Helmet { Name = "Helmet", ReduceHitPoint = 3 });
+
+// Strategy
+fighter1.SetAttackStrategy(new PowerAttack());
+fighter2.SetAttackStrategy(new NormalAttack());
+
+// Observer
 var logger = new CreatureLogger();
-warrior.AddObserver(logger);
-goblin.AddObserver(logger);
-dragon.AddObserver(logger);
-Console.WriteLine("Observers added to Warrior, Goblin and Dragon\n");
+fighter1.AddObserver(logger);
+fighter2.AddObserver(logger);
+
+// Battle
+var random = new Random();
+Creature attacker, defender;
+if (random.Next(2) == 0)
+{
+    attacker = fighter1;
+    defender = fighter2;
+}
+else
+{
+    attacker = fighter2;
+    defender = fighter1;
+}
+
+
+const int MaxRounds = 10;
+int round = 1;
+
+while (fighter1.HitPoint > 0 && fighter2.HitPoint > 0 && round <= MaxRounds)
+{
+    Console.WriteLine($"--- Round {round} ---");
+    Console.WriteLine($"{fighter1.Name} HP: {fighter1.HitPoint} | {fighter2.Name} HP: {fighter2.HitPoint}");
+
+    attacker.PerformAttack(defender);
+    if (defender.HitPoint <= 0) break;
+
+    (attacker, defender) = (defender, attacker);
+    round++;
+}
+
+Console.WriteLine(
+    fighter1.HitPoint <= 0 ? $"{fighter2.Name} wins!" :
+    fighter2.HitPoint <= 0 ? $"{fighter1.Name} wins!" :
+    "Draw!"
+);
+
+
+
+
+#region another tests
 
 //// ── Template Method ────────────────────────────────────────────
 //Console.WriteLine("=== TEMPLATE METHOD TEST ===");
@@ -115,60 +172,4 @@ Console.WriteLine("Observers added to Warrior, Goblin and Dragon\n");
 //MyLogger.Instance.RemoveListener(fileListener);
 //Console.WriteLine("=== ALL TESTS DONE – check log.txt ===");
 
-// ── Turn-Based Battle Test ─────────────────────────────────────
-Console.WriteLine("=== TURN-BASED BATTLE ===");
-
-var fighter1 = new Warrior { Name = "Warrior", HitPoint = 100 };
-var fighter2 = new Dragon { Name = "Dragon", HitPoint = 120 };
-
-// Giv dem våben
-fighter1.AddWeapon(new Sword { Name = "Sword", Hit = 15, Weight = 5 });
-fighter2.AddWeapon(new Pistol { Name = "Pistol", Hit = 12, Weight = 3 });
-
-// Giv dem strategier
-fighter1.SetAttackStrategy(new NormalAttack());
-fighter2.SetAttackStrategy(new PowerAttack());
-
-// Tilføj observers
-fighter1.AddObserver(logger);
-fighter2.AddObserver(logger);
-
-// Tilfældig hvem starter
-var random = new Random();
-Creature attacker = random.Next(2) == 0 ? fighter1 : fighter2;
-Creature defender = attacker == fighter1 ? fighter2 : fighter1;
-
-Console.WriteLine($"{attacker.Name} goes first!\n");
-
-int maxRounds = 10;
-int round = 1;
-
-while (fighter1.HitPoint > 0 && fighter2.HitPoint > 0 && round <= maxRounds)
-{
-    Console.WriteLine($"--- Round {round} ---");
-    Console.WriteLine($"{fighter1.Name} HP: {fighter1.HitPoint} | {fighter2.Name} HP: {fighter2.HitPoint}");
-
-    // Attacker angriber defender
-    Console.WriteLine($"{attacker.Name} attacks {defender.Name}!");
-    attacker.PerformAttack(defender);
-
-    // Tjek om defender er død
-    if (defender.HitPoint <= 0)
-        break;
-
-    // Skift tur
-    (attacker, defender) = (defender, attacker);
-    round++;
-    Thread.Sleep(2000); // Pause for at gøre det mere dramatisk
-}
-
-Console.WriteLine("\n=== BATTLE RESULT ===");
-if (fighter1.HitPoint <= 0)
-    Console.WriteLine($"{fighter2.Name} wins after {round} rounds!");
-else if (fighter2.HitPoint <= 0)
-    Console.WriteLine($"{fighter1.Name} wins after {round} rounds!");
-else
-    Console.WriteLine($"Draw after {maxRounds} rounds! {fighter1.Name} HP: {fighter1.HitPoint} | {fighter2.Name} HP: {fighter2.HitPoint}");
-
-
-Console.BackgroundColor = ConsoleColor.Red;
+#endregion

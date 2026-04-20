@@ -11,8 +11,12 @@ using System.Threading.Tasks;
 
 namespace Mandatory2DGameFramework.model.CreatureTypes
 {
+    // O - Open/Closed
+    // L - Liskov Substitution
     public class Dragon : Creature
     {
+
+
 
         protected override void AfterLoot()
         {

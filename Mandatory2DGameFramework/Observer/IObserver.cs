@@ -9,6 +9,7 @@ namespace Mandatory2DGameFramework.Observer
     /// <summary>
     /// Observer interface for receiving notifications from subjects.
     /// </summary>
+    /// I - Interface Segregation
     public interface IObserver
     {
         /// <summary>

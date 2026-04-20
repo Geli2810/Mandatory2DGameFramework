@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace Mandatory2DGameFramework.LoggingFile
 {
+    // S - Single Responsibility
+
     public sealed class MyLogger : IMyLogger
     {
         /// <summary>
@@ -64,7 +66,9 @@ namespace Mandatory2DGameFramework.LoggingFile
 
 
         /// <summary>
-        /// The LogInfo method writes an information message to the Trace class. It uses the Trace.TraceInformation method to write the message to the trace listeners.
+        /// The LogInfo method writes an 
+        /// 
+        /// message to the Trace class. It uses the Trace.TraceInformation method to write the message to the trace listeners.
         /// </summary>
         /// <param name="message"> The message to be logged and it should be an string message</param>
         public void LogInfo(string message)

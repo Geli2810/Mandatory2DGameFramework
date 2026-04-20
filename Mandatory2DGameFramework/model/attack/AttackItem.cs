@@ -40,7 +40,7 @@ namespace Mandatory2DGameFramework.model.attack
 
         public override string ToString()
         {
-            return $"{{{nameof(Name)}={Name}, {nameof(Hit)}={Hit.ToString()}, {nameof(Range)}={Range.ToString()} {nameof(Weight)}={Weight.ToString()}}}";
+            return $"Name: {Name}, Hit: {Hit}, Range: {Range}, Weight: {Weight}";
         }
     }
 }

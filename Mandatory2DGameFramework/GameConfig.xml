@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>Mandatory2DGameFramework</name>
+        <name>PlayMyGame</name>
     </assembly>
     <members>
         <member name="F:Mandatory2DGameFramework.LoggingFile.MyLogger.instance">
@@ -33,7 +33,9 @@
         </member>
         <member name="M:Mandatory2DGameFramework.LoggingFile.MyLogger.LogInfo(System.String)">
             <summary>
-            The LogInfo method writes an information message to the Trace class. It uses the Trace.TraceInformation method to write the message to the trace listeners.
+            The LogInfo method writes an 
+            
+            message to the Trace class. It uses the Trace.TraceInformation method to write the message to the trace listeners.
             </summary>
             <param name="message"> The message to be logged and it should be an string message</param>
         </member>
@@ -74,6 +76,7 @@
             <summary>
             Observer interface for receiving notifications from subjects.
             </summary>
+            I - Interface Segregation
         </member>
         <member name="M:Mandatory2DGameFramework.Observer.IObserver.Update(Mandatory2DGameFramework.Observer.ISubject,System.String)">
             <summary>

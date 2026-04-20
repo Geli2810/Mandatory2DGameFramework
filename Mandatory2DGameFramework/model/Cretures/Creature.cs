@@ -12,34 +12,26 @@ using System.Threading.Tasks;
 
 namespace Mandatory2DGameFramework.model.Cretures
 {
+    // S - Single Responsibility
+    // D - Dependency Inversion
     public abstract class Creature :ISubject
     {
         private List<IObserver> observers = new List<IObserver>();
         private IAttackStrategy _attackStrategy;
-        
+        private WeaponComposite _weaponComposite;
+        private DefenceComposite _defenceComposite;
 
+        #region Properties
         public string Name { get; set; }
         public int HitPoint { get; set; }
         public AttackItem? Attack { get; set; }
         public DefenceItem? Defence { get; set; }
         public int MaxWeight { get; set; }
+        public WeaponComposite WWeaponComposite { get; set; }
+        public DefenceComposite DDefenceComposite { get { return _defenceComposite; } set { _defenceComposite = value; } }
+        public WeaponComposite WeaponComposite { get; set; } = new WeaponComposite();
 
-        public WeaponComposite WWeaponComposite
-        {
-            get; set;
-
-        }
-
-        public DefenceComposite DDefenceComposite
-        {
-            get { return _defenceComposite; }
-            set { _defenceComposite = value; }
-   
-        }
-
-
-        private WeaponComposite _weaponComposite;
-        private DefenceComposite _defenceComposite;
+        #endregion
 
         protected Creature()
         {
@@ -47,7 +39,7 @@ namespace Mandatory2DGameFramework.model.Cretures
             HitPoint = 100;
             Attack = null;
             Defence = null;
-            MaxWeight = 0;
+            MaxWeight = 100;
             WWeaponComposite = new WeaponComposite();
             DDefenceComposite = new DefenceComposite();
         }
@@ -62,6 +54,8 @@ namespace Mandatory2DGameFramework.model.Cretures
         {
             _attackStrategy?.Attack(target);
         }
+
+
 
         // Template Method
         public void ReceiveHit(int hit)
@@ -80,6 +74,7 @@ namespace Mandatory2DGameFramework.model.Cretures
                 Die();
         }
 
+
         public int Hit()
         {
             return _weaponComposite.TotalHit();
@@ -92,6 +87,7 @@ namespace Mandatory2DGameFramework.model.Cretures
 
             if (obj is AttackItem attackItem)
                 Attack = attackItem;
+
             else if (obj is DefenceItem defenceItem)
                 Defence = defenceItem;
 
@@ -132,16 +128,17 @@ namespace Mandatory2DGameFramework.model.Cretures
         }
 
 
-        public WeaponComposite WeaponComposite { get; set; } = new WeaponComposite();
-
-        public void AddWeapon(AttackItem attack)
+        public void AddWeapons(params AttackItem[] attacks)
         {
-            WeaponComposite.AddAttack(attack, MaxWeight);
+            foreach (var attack in attacks)
+            {
+                WeaponComposite.AddAttack(attack, MaxWeight);
+            }
         }
 
         public override string ToString()
         {
-            return $"{{{nameof(Name)}={Name}, {nameof(HitPoint)}={HitPoint}, {nameof(Attack)}={Attack}, {nameof(Defence)}={Defence}}}";
+            return $"Creature: {Name}, HitPoint: {HitPoint}, Attack: {Attack}, Defence: {Defence}";
         }
 
     }

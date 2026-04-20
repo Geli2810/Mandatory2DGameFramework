@@ -2,11 +2,25 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
+    <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <DocumentationFile>C:\Datamatiker Uddannelsen\4.Semester Valgfager\Programmering\Mandatory2DGameFramework\Mandatory2DGameFramework\GameConfig.xml</DocumentationFile>
-    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <AssemblyName>PlayMyGame</AssemblyName>
+    <RootNamespace>PlayMyGame</RootNamespace>
+    <Title>Fighters game</Title>
+    <Version>8.0.0</Version>
+    <Description>This project is a turn-based 2D game framework designed for .NET 8. The framework allows you to create a world with creatures that can move, fight, and collect items such as weapons and armor. Each creature can have multiple attack and defense items, and battles are resolved by taking turns attacking each other. The system supports logging, configuration via XML, and uses several design patterns (such as Strategy, Observer, Template Method, Decorator, and Composite) to ensure flexibility and extensibility. The framework is intended as a foundation for building simple, console-based 2D games without a graphical user interface.</Description>
+    <Company>Geli28</Company>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <GenerateAssemblyInfo>True</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <GenerateAssemblyInfo>True</GenerateAssemblyInfo>
   </PropertyGroup>
 
 </Project>
