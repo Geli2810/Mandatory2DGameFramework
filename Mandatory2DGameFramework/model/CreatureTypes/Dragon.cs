@@ -16,8 +16,6 @@ namespace Mandatory2DGameFramework.model.CreatureTypes
     public class Dragon : Creature
     {
 
-
-
         protected override void AfterLoot()
         {
             MyLogger.Instance.LogInfo($"The {Name} has been hit." + HitPoint + " hitpoints left." + Attack.Name + " has been looted." + Defence.Name + " has been looted.");

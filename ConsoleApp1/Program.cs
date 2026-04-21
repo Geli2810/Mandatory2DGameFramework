@@ -31,22 +31,31 @@ var fighter2 = new Dragon { Name = "Dragon", HitPoint = 120 };
 fighter1.AddWeapons(
     new Sword { Name = "Sword", Hit = 15, Weight = 5 },
     new Pistol { Name = "Pistol", Hit = 12, Weight = 3 },
-    new Sword { Name = "Sword", Hit = 15, Weight = 5 });
+    new Sword { Name = "Sword", Hit = 15, Weight = 5 }
+);
 
-fighter2.AddWeapons(new Pistol { Name = "Pistol", Hit = 12, Weight = 3 },
-    new Sword { Name = "Sword", Hit = 15, Weight = 5 });
+fighter2.AddWeapons(
+    new Pistol { Name = "Pistol", Hit = 12, Weight = 3 },
+    new Sword { Name = "Sword", Hit = 15, Weight = 5 }
+);
 
-AttackItemDecorator boosted = new BoostDecorator(new Sword { Name = "Sword", Hit = 15, Weight = 5 }, 5);
+AttackItemDecorator boosted = 
+    new BoostDecorator(new Sword { Name = "Sword", Hit = 15, Weight = 5 }, 5);
 fighter2.AddWeapons(boosted);
 
 // combined to weapons
-var combined = new Sword { Name = "Sword", Hit = 15, Weight = 5 } + new Pistol { Name = "Pistol", Hit = 12, Weight = 3 };
+var combined = 
+    new Sword { Name = "Sword", Hit = 15, Weight = 5 } + new Pistol { Name = "Pistol", Hit = 12, Weight = 3 };
 fighter2.AddWeapons(combined);
 
 
 // Defence
-fighter1.DDefenceComposite.AddDefence(new Shield { Name = "Shield", ReduceHitPoint = 5 });
-fighter2.DDefenceComposite.AddDefence(new Helmet { Name = "Helmet", ReduceHitPoint = 3 });
+fighter1.DDefenceComposite.AddDefence(
+    new Shield { Name = "Shield", ReduceHitPoint = 5 }
+);
+fighter2.DDefenceComposite.AddDefence(
+    new Helmet { Name = "Helmet", ReduceHitPoint = 3 }
+);
 
 // Strategy
 fighter1.SetAttackStrategy(new PowerAttack());
@@ -92,6 +101,13 @@ Console.WriteLine(
     fighter2.HitPoint <= 0 ? $"{fighter1.Name} wins!" :
     "Draw!"
 );
+
+
+
+
+
+
+
 
 
 

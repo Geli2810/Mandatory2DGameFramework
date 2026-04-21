@@ -27,7 +27,7 @@ namespace Mandatory2DGameFramework.model.attack
         }
 
 
-        public static AttackItem operator +(AttackItem a, AttackItem b)
+        public static AttackItem operator + (AttackItem a, AttackItem b)
         {
             return new Sword
             {
